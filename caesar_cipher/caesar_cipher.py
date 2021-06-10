@@ -48,13 +48,15 @@ def crack(text_to_crack):
     # walk the key down until percetange is high
     key = 1
     decrypt_guess = decrypt(text_to_crack, key)
-
     recognized_word_count = count_words(decrypt_guess)
     potential_word_count = len(text_to_crack.split())
     percentage = int(recognized_word_count / potential_word_count * 100)
+    while percentage < 80:
+        decrypt_guess = decrypt(text_to_crack, key)
+        key += 1
 
-    if percentage >= 50:
-        return decrypt_guess
+    print("the key is: " + key)
+    return decrypt_guess
 
 def count_words(text):
     candidate_words = text.split()
